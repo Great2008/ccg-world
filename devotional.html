@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Devotional - Christian Church of God Mission</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="ccg-logo.png" type="image/png">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="ccg-logo.png" alt="Christian Church of God Mission Logo" class="ccg-logo">
+        </div>
+
+        <div class="menu-controls">
+            <label class="switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider round"></span>
+            </label>
+            <div class="hamburger-menu" id="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+
+        <nav id="nav-menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="devotional.html">Devotional</a></li>
+                <li><a href="sabbath-school.html">Sabbath School</a></li>
+                <li><a href="bible.html">Bible</a></li>
+                <li><a href="hymnal.html">Hymnal</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="devotional-section" data-aos="fade-up">
+            <div class="container">
+                <h2>Daily Devotional</h2>
+                <div id="devotional-content">
+                    <p>Loading today's devotional...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Christian Church of God Mission is dedicated to serving God and our community with love and compassion.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="sermons.html">Sermons</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>123 Church Street, City, State 12345</p>
+                <p>Email: info@ccgmission.org</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Motto: God First</p>
+            <p>&copy; 2023 Christian Church of God Mission</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Data for all devotionals, stored in a JavaScript object
+        const allDevotionals = {
+            // NOTE: The dates here should be in 'YYYY-MM-DD' format.
+            // You can add as many devotionals as you need.
+            '2025-08-04': {
+                title: "The Light of the World",
+                content: "Jesus said, 'I am the light of the world. Whoever follows me will not walk in darkness.' Let His light guide your path today."
+            },
+            '2025-08-05': {
+                title: "God's Unfailing Love",
+                content: "God's promises are true and everlasting. Rest in His faithfulness and trust that He will fulfill every word He has spoken."
+            },
+            '2025-08-06': {
+                title: "The Power of Faith",
+                content: "Faith is the substance of things hoped for, the evidence of things not seen. Today, let your faith be your guide and your strength."
+            },
+            // Add more entries here as you create them...
+            // 'YYYY-MM-DD': { title: 'Your Devotional Title', content: 'Your devotional text...' },
+        };
+
+        // Function to get the current devotional based on the date
+        function getDailyDevotional() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const todayDateString = `${year}-${month}-${day}`;
+
+            const devotionalContent = document.getElementById('devotional-content');
+            const devotional = allDevotionals[todayDateString];
+
+            if (devotional) {
+                devotionalContent.innerHTML = `
+                    <h3>${devotional.title}</h3>
+                    <p class="devotional-date">Devotional for ${todayDateString}</p>
+                    <p>${devotional.content}</p>
+                `;
+            } else {
+                devotionalContent.innerHTML = `
+                    <h3>No devotional for today</h3>
+                    <p>Please check back tomorrow for a new message.</p>
+                `;
+            }
+        }
+
+        // Call the function to display the devotional when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            getDailyDevotional();
+            AOS.init({ duration: 1000, once: true });
+        });
+    </script>
+</body>
+</html>
