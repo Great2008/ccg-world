@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Bible - Christian Church of God Mission</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="ccg-logo.png" type="image/png">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="ccg-logo.png" alt="Christian Church of God Mission Logo" class="ccg-logo">
+        </div>
+
+        <div class="menu-controls">
+            <label class="switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider round"></span>
+            </label>
+            <div class="hamburger-menu" id="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+
+        <nav id="nav-menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="devotional.html">Devotional</a></li>
+                <li><a href="sabbath-school.html">Sabbath School</a></li>
+                <li><a href="bible.html">Bible</a></li>
+                <li><a href="hymnal.html">Hymnal</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="bible-section" data-aos="fade-up">
+            <div class="container">
+                <h2>Books of the Bible</h2>
+                <div id="bible-books-list" class="bible-books-grid">
+                    <p>Loading books...</p>
+                </div>
+
+                <div id="bible-viewer" class="bible-viewer">
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Christian Church of God Mission is dedicated to serving God and our community with love and compassion.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="sermons.html">Sermons</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>123 Church Street, City, State 12345</p>
+                <p>Email: info@ccgmission.org</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Motto: God First</p>
+            <p>&copy; 2023 Christian Church of God Mission</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Data containing the list of all books of the Bible
+        const bibleBooks = [
+            'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth',
+            '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah',
+            'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah',
+            'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah',
+            'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi',
+            'Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans', '1 Corinthians', '2 Corinthians',
+            'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians',
+            '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter',
+            '1 John', '2 John', '3 John', 'Jude', 'Revelation'
+        ];
+
+        // Function to create and display the list of books
+        function displayBibleBooks() {
+            const booksList = document.getElementById('bible-books-list');
+            booksList.innerHTML = ''; // Clear the "Loading books..." message
+
+            bibleBooks.forEach(book => {
+                const bookElement = document.createElement('div');
+                bookElement.classList.add('bible-book-item');
+                bookElement.textContent = book;
+                bookElement.addEventListener('click', () => {
+                    // This is where we'll add the logic to load chapters and verses
+                    alert(`You clicked on the book of ${book}`);
+                });
+                booksList.appendChild(bookElement);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            displayBibleBooks();
+            AOS.init({ duration: 1000, once: true });
+        });
+    </script>
+</body>
+</html>
