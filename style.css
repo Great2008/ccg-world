@@ -455,3 +455,38 @@ body.dark-theme .contact-form textarea {
     border: 1px solid #444;
     color: var(--dark-text);
 }
+/* --- Sabbath School Page Styles --- */
+.sabbath-school-section {
+    padding: 4em 0;
+    background-color: white;
+}
+
+.sabbath-school-section h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 2em;
+}
+
+.lesson-quarter {
+    text-align: center;
+    color: var(--primary-color);
+}
+
+.lesson-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--secondary-color);
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Dark theme styling for Sabbath School page */
+body.dark-theme .sabbath-school-section {
+    background-color: var(--dark-section-bg);
+}
+
+body.dark-theme .lesson-content {
+    background-color: var(--dark-bg);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}

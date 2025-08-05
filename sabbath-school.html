@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabbath School Manual - Christian Church of God Mission</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="ccg-logo.png" type="image/png">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="ccg-logo.png" alt="Christian Church of God Mission Logo" class="ccg-logo">
+        </div>
+
+        <div class="menu-controls">
+            <label class="switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider round"></span>
+            </label>
+            <div class="hamburger-menu" id="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+
+        <nav id="nav-menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="devotional.html">Devotional</a></li>
+                <li><a href="sabbath-school.html">Sabbath School</a></li>
+                <li><a href="bible.html">Bible</a></li>
+                <li><a href="hymnal.html">Hymnal</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="sabbath-school-section" data-aos="fade-up">
+            <div class="container">
+                <h2>Sabbath School Manual</h2>
+                <div id="sabbath-school-content">
+                    <p>Loading this week's lesson...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Christian Church of God Mission is dedicated to serving God and our community with love and compassion.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="sermons.html">Sermons</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>123 Church Street, City, State 12345</p>
+                <p>Email: info@ccgmission.org</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Motto: God First</p>
+            <p>&copy; 2023 Christian Church of God Mission</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Data for Sabbath School lessons, organized by week
+        const sabbathSchoolLessons = {
+            // NOTE: Key is the week number (1-52).
+            // This is just sample data. You can replace it with your actual lessons.
+            '1': {
+                title: 'Lesson 1: The Plan of Salvation',
+                quarter: '3rd Quarter',
+                content: 'This week, we explore the wonderful plan God has for us, from creation to redemption. Our key text is John 3:16...',
+                readings: 'Genesis 1:1, John 3:16, Romans 5:8'
+            },
+            '2': {
+                title: 'Lesson 2: God\'s Faithfulness',
+                quarter: '3rd Quarter',
+                content: 'This lesson focuses on God\'s unchanging character and His faithfulness to His people. Our key text is Lamentations 3:22-23...',
+                readings: 'Lamentations 3:22-23, Hebrews 13:8'
+            },
+            // Add more entries here as you create them, mapping to the correct week number.
+            // '3': { title: 'Lesson 3: Your Title', quarter: 'Quarter', content: '...', readings: '...' },
+        };
+
+        // Function to get the current lesson based on the week number
+        function getSabbathSchoolLesson() {
+            const today = new Date();
+            const startOfYear = new Date(today.getFullYear(), 0, 1);
+            const weekNumber = Math.ceil((((today - startOfYear) / 86400000) + startOfYear.getDay() + 1) / 7);
+
+            const contentContainer = document.getElementById('sabbath-school-content');
+            const lesson = sabbathSchoolLessons[weekNumber];
+
+            if (lesson) {
+                contentContainer.innerHTML = `
+                    <h3>${lesson.title}</h3>
+                    <p class="lesson-quarter"><strong>${lesson.quarter}</strong></p>
+                    <div class="lesson-content">
+                        <p>${lesson.content}</p>
+                        <p><strong>Bible Readings:</strong> ${lesson.readings}</p>
+                    </div>
+                `;
+            } else {
+                contentContainer.innerHTML = `
+                    <h3>Lesson Not Found</h3>
+                    <p>There is no lesson available for this week. Please check back later.</p>
+                `;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            getSabbathSchoolLesson();
+            AOS.init({ duration: 1000, once: true });
+        });
+    </script>
+</body>
+</html>
