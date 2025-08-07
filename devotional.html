@@ -3,134 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Devotional - Christian Church of God Mission</title>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <title>Daily Devotional | Christian Church of God Mission</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="ccg-logo.png" type="image/png">
+    <style>
+        /* This is a simple style block for this page to keep things organized. */
+        .page-header {
+            background-color: #006400; /* Deep Green */
+            color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+
+        #devotional-content {
+            background-color: #fff;
+            padding: 40px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .devotional-date {
+            color: #555;
+            font-style: italic;
+            margin-top: -15px;
+            margin-bottom: 25px;
+        }
+
+        .loading-state {
+            text-align: center;
+            font-style: italic;
+            color: #777;
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">
-            <img src="ccg-logo.png" alt="Christian Church of God Mission Logo" class="ccg-logo">
-        </div>
-
-        <div class="menu-controls">
-            <label class="switch">
-                <input type="checkbox" id="theme-toggle">
-                <span class="slider round"></span>
-            </label>
-            <div class="hamburger-menu" id="hamburger-menu">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-        </div>
-
-        <nav id="nav-menu">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="devotional.html">Devotional</a></li>
-                <li><a href="sabbath-school.html">Sabbath School</a></li>
-                <li><a href="bible.html">Bible</a></li>
-                <li><a href="hymnal.html">Hymnal</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-            </ul>
-        </nav>
+    <header class="page-header">
+        <h1>Daily Devotional</h1>
     </header>
 
-    <main>
-        <section class="devotional-section" data-aos="fade-up">
-            <div class="container">
-                <h2>Daily Devotional</h2>
-                <div id="devotional-content">
-                    <p>Loading today's devotional...</p>
-                </div>
-            </div>
+    <main class="container">
+        <section id="devotional-content">
+            <div class="loading-state">Loading today's devotional...</div>
         </section>
     </main>
 
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-section">
-                <h4>About Us</h4>
-                <p>Christian Church of God Mission is dedicated to serving God and our community with love and compassion.</p>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="events.html">Events</a></li>
-                    <li><a href="sermons.html">Sermons</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p>131 Ahoada Omoku Road, Omoku 510103</p>
-                <p>Email: info@ccgmission.org</p>
-                <p>Phone: (123) 456-7890</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>Motto: God First</p>
-            <p>&copy; 2023 Christian Church of God Mission</p>
-        </div>
-    </footer>
+    <script type="module">
+        // Import the necessary Firebase functions
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
-    <script>
-        // Data for all devotionals, stored in a JavaScript object
-        const allDevotionals = {
-            // NOTE: The dates here should be in 'YYYY-MM-DD' format.
-            // You can add as many devotionals as you need.
-            '2025-08-04': {
-                title: "The Light of the World",
-                content: "Jesus said, 'I am the light of the world. Whoever follows me will not walk in darkness.' Let His light guide your path today."
-            },
-            '2025-08-05': {
-                title: "God's Unfailing Love",
-                content: "God's promises are true and everlasting. Rest in His faithfulness and trust that He will fulfill every word He has spoken."
-            },
-            '2025-08-06': {
-                title: "The Power of Faith",
-                content: "Faith is the substance of things hoped for, the evidence of things not seen. Today, let your faith be your guide and your strength."
-            },
-            // Add more entries here as you create them...
-            // 'YYYY-MM-DD': { title: 'Your Devotional Title', content: 'Your devotional text...' },
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyDi7dXkJjS0ZE4-T_8IHcaaOZJxqana2GE",
+          authDomain: "daily-devotional-f3740.firebaseapp.com",
+          projectId: "daily-devotional-f3740",
+          storageBucket: "daily-devotional-f3740.firebasestorage.app",
+          messagingSenderId: "510025428844",
+          appId: "1:510025428844:web:c3b701340b75d175848d49",
+          measurementId: "G-RMQ3J9G0JM"
         };
 
-        // Function to get the current devotional based on the date
-        function getDailyDevotional() {
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            const todayDateString = `${year}-${month}-${day}`;
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-            const devotionalContent = document.getElementById('devotional-content');
-            const devotional = allDevotionals[todayDateString];
+        const devotionalContent = document.getElementById('devotional-content');
 
-            if (devotional) {
-                devotionalContent.innerHTML = `
-                    <h3>${devotional.title}</h3>
-                    <p class="devotional-date">Devotional for ${todayDateString}</p>
-                    <p>${devotional.content}</p>
-                `;
-            } else {
-                devotionalContent.innerHTML = `
-                    <h3>No devotional for today</h3>
-                    <p>Please check back tomorrow for a new message.</p>
-                `;
+        // Function to fetch the latest devotional
+        async function getLatestDevotional() {
+            try {
+                // Query the 'devotionals' collection, ordering by date in descending order to get the latest one
+                const q = query(collection(db, "devotionals"), orderBy("date", "desc"), limit(1));
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    devotionalContent.innerHTML = '<p>No devotionals found today. Please check back later!</p>';
+                    return;
+                }
+
+                // Loop through the documents (there should only be one due to limit(1))
+                querySnapshot.forEach((doc) => {
+                    const devotional = doc.data();
+                    devotionalContent.innerHTML = `
+                        <h2>${devotional.title}</h2>
+                        <p class="devotional-date">${devotional.date.toDate().toLocaleDateString()}</p>
+                        <p>${devotional.body}</p>
+                        <p><strong>Scripture:</strong> ${devotional.scripture}</p>
+                    `;
+                });
+            } catch (error) {
+                console.error("Error fetching devotional: ", error);
+                devotionalContent.innerHTML = '<p>There was an error loading the devotional. Please try again later.</p>';
             }
         }
 
-        // Call the function to display the devotional when the page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            getDailyDevotional();
-            AOS.init({ duration: 1000, once: true });
-        });
+        // Call the function when the page loads
+        getLatestDevotional();
     </script>
 </body>
 </html>
